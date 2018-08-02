@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.uniform.dao.BoardIDAO">
+
+	<insert id="insert">
+		INSERT INTO BOARD
+		(BOARD_NO, MEMBER_ID, BOARD_PASS, BOARD_TITLE, BOARD_DATE, BOARD_CONTENT, REF, REF_STEP, REF_LEVEL, READCOUNT)
+		VALUES (BOARD_SEQ.NEXTVAL, #{param1}, #{param2}, #{param3}, SYSDATE,  #{param4}, 
+			(SELECT MAX(REF) FROM BOARD) + 1, 1, 1, 0)
+	</insert>
+
+	<select id="selectAll" resultType="com.project.uniform.dto.Board">
+		SELECT *
+		FROM BOARD
+		ORDER BY REF DESC, REF_LEVEL ASC, REF_STEP ASC
+	</select>
+	
+	<select id="select" resultType="com.project.uniform.dto.Board">
+		SELECT *
+		FROM BOARD
+		WHERE BOARD_NO = #{param1}
+	</select>
+
+	<update id="upHit">
+		UPDATE BOARD
+		SET READCOUNT = READCOUNT + 1
+		WHERE BOARD_NO = #{param1}
+	</update>
+
+	<update id="updateLevel">
+		UPDATE BOARD 
+		SET REF_LEVEL = REF_LEVEL + 1
+		WHERE REF = #{param1} AND REF_LEVEL > #{param2}
+	</update>
+
+	<insert id="insert2">
+		INSERT INTO BOARD 
+		VALUES(BOARD_SEQ.NEXTVAL, #{param1}, #{param2}, #{param3}, SYSDATE,  #{param4},
+			#{param5}, #{param6} + 1, #{param7} + 1, 0)
+	</insert>
+
+	<update id="update">
+		UPDATE BOARD 
+		SET BOARD_TITLE = #{param1},
+			BOARD_CONTENT = #{param2}
+		WHERE BOARD_NO = #{param3}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM BOARD
+		WHERE BOARD_NO = #{param1}
+	</delete>
+
+</mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.uniform.dao.Order_BasketIDAO">
+
+	<insert id="insert">
+		INSERT INTO ORDER_BASKET
+		(MEMBER_ID, GOODS_NO, QTY, PRICE, GOODS_NAME, IMG)
+		VALUES (#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6})
+	</insert>
+
+	<delete id="delete">
+		DELETE FROM ORDER_BASKET
+		WHERE GOODS_NO = #{param1}
+	</delete>
+	
+	<delete id="deleteGoods">
+		DELETE FROM ORDER_BASKET
+		WHERE MEMBER_ID = #{param1} AND GOODS_NO = #{param2} 
+	</delete>
+
+	<update id="update">
+		UPDATE ORDER_BASKET 
+		SET 
+			QTY = #{param1}, 
+			PRICE = #{param2}
+		WHERE MEMBER_ID = #{param3} AND GOODS_NO = #{param4} 
+	</update>
+
+	<select id="selectMember" resultType="com.project.uniform.dto.Order_Basket">
+		SELECT *
+		FROM ORDER_BASKET
+		WHERE MEMBER_ID = #{param1}
+	</select>
+
+	<select id="selectAll" resultType="com.project.uniform.dto.Order_Basket">
+		SELECT *
+		FROM ORDER_BASKET
+	</select>
+
+</mapper>

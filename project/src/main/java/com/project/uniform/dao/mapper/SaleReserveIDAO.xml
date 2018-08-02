@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.uniform.dao.SaleReserveIDAO">
+
+	<insert id="insert">
+		INSERT INTO SALERESERVE
+		(SALE_NO, SALE_CODE, GOODS_NO, QTY, PRICE, ADDRESS, CLAIM, SEND)
+		VALUES (SALERESERVE_SEQ.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, 'no')
+	</insert>
+
+	<select id="selectAll" resultType="com.project.uniform.dto.SaleReserve">
+		SELECT *
+		FROM SALERESERVE
+		ORDER BY SALE_NO DESC
+	</select>
+	
+	<select id="select" resultType="com.project.uniform.dto.SaleReserve">
+		SELECT *
+		FROM SALERESERVE
+		WHERE SALE_CODE = #{param1}
+	</select>
+	
+	<select id="selectCode" resultType="com.project.uniform.dto.SaleReserve">
+		SELECT *
+		FROM SALERESERVE
+		WHERE SALE_CODE BETWEEN #{param1} AND #{param2}
+		ORDER BY SALE_NO ASC
+	</select>
+	
+	<delete id="delete">
+		DELETE FROM SALERESERVE
+		WHERE SALE_NO = #{param1}
+	</delete>
+	
+	<update id="sendUpdate">
+		UPDATE SALERESERVE
+		SET SEND = 'yes'
+		WHERE SALE_NO = #{param1}
+	</update>
+	
+	
+</mapper>

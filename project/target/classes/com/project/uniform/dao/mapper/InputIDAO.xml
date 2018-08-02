@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.uniform.dao.InputIDAO">
+
+	<insert id="insert">
+		INSERT INTO INPUT
+		(INPUT_NO, GOODS_NO, INPUT_QTY, INPUT_PRICE, INPUT_DATE)
+		VALUES (INPUT_SEQ.NEXTVAL, #{param1}, #{param2}, #{param3}, SYSDATE)
+	</insert>
+
+	<select id="selectAll" resultType="com.project.uniform.dto.Input">
+		SELECT *
+		FROM INPUT
+	</select>
+	
+	<select id="select" resultType="com.project.uniform.dto.Input">
+		SELECT *
+		FROM INPUT
+		WHERE INPUT_NO = #{param1}
+	</select>
+
+	<update id="update">
+		UPDATE INPUT 
+		SET GOODS_NO = #{param1},
+			INPUT_QTY = #{param2},
+			INPUT_PRICE = #{param3},
+			INPUT_DATE = #{param4}
+		WHERE INPUT_NO = #{param5}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM INPUT
+		WHERE INPUT_NO = #{param1}
+	</delete>
+	
+	<select id="selectDate" resultType="com.project.uniform.dto.Input">
+		SELECT *
+		FROM INPUT
+		WHERE INPUT_DATE BETWEEN #{param1} AND #{param2}
+		ORDER BY INPUT_NO
+	</select>
+	
+	<select id="selectToday" resultType="com.project.uniform.dto.Input">
+		SELECT * 
+		FROM INPUT 
+		WHERE TO_Char(INPUT_DATE,'yyyy-mm-dd') = #{param2}
+	</select>
+
+</mapper>
